@@ -1,8 +1,19 @@
-import {useEffect, useState, useMemo} from 'react'
+import {useMemo} from 'react'
 import Head from 'next/head'
 
-export default function TopPage () {
-  const [status, setStatus] = useState(null)
+const endpoint = process.env.VERCEL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000'
+
+export async function getServerSideProps () {
+  const res = await fetch(`${endpoint}/api/latest`)
+  const status = await res.json()
+  return {
+    props: {
+      status
+    }
+  }
+}
+
+export default function TopPage ({ status }) {
   const createdAt = useMemo(() => {
     if (status) {
       return new Date(status.created_at).toLocaleString()
@@ -10,9 +21,6 @@ export default function TopPage () {
       return ''
     }
   }, [status])
-  useEffect(() => {
-    fetch('/api/latest').then(res => res.json()).then(json => setStatus(json))
-  }, [])
   return status ? (
     <>
       <Head>
