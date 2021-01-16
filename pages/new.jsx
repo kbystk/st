@@ -12,7 +12,9 @@ export default function New () {
   const submit = useCallback(async () => {
     const res = await fetch(`/api/new?salt=${salt}&text=${encodeURIComponent(text)}`)
     const json = await res.json()
-    console.log(json)
+    if (json.ok) {
+      setText('')
+    }
   }, [salt, text])
   return (
     <div className="h-screen flex flex-col justify-between">
