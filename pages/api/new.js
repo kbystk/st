@@ -2,7 +2,7 @@ import {pool} from '../../lib/pool'
 
 export default async function latest (req, res) {
   res.statusCode = 200
-  if (req.salt === process.env.SALT) {
+  if (req.query.salt === process.env.SALT) {
     const client = await pool.connect()
     const result = await client.query(`
       insert into statuses (text) values('${req.query.text}')
