@@ -15,16 +15,18 @@ export default function New () {
     console.log(json)
   }, [salt, text])
   return (
-    <div>
+    <div className="h-screen flex flex-col justify-between">
       <div>
-        <button onClick={submit}>submit</button>
+        <div>
+          <button onClick={submit} className="border rounded border-solid border-black p-2 m-2">submit</button>
+        </div>
+        <div>
+          <textarea value={text} onChange={(e) => setText(e.currentTarget.value)} className="w-5/6 h-20 m-2 p-2 border rounded border-solid border-black"></textarea>
+        </div>
       </div>
-      <div>
-        <textarea value={text} onChange={(e) => setText(e.currentTarget.value)}></textarea>
-      </div>
-      <div>
-        <input value={salt} onChange={(e) => setSalt(e.currentTarget.value)} type="password"></input>
-        <button onClick={saveSalt}>set</button>
+      <div className="p-2">
+        <input value={salt} onChange={(e) => setSalt(e.currentTarget.value)} type="password" className="border rounded border-solid border-black mr-4 p-2 "></input>
+        <button onClick={saveSalt} className="border border-solid border-black p-2">set</button>
       </div>
     </div>
   )
